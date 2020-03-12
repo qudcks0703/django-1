@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% extends 'base_top.html' %}
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/signin.css' %}">
+</head>
+<body>
+    {% block content%}
+    <div class="container">
+    <form class="form-signin" method="POST">
+        <img class="mb-4" src="/docs/4.4/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">회원 가입</h1>
+        {% csrf_token %}
+        {{signupform.as_p}}
+        <div class="checkbox mb-3">
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <p class="mt-5 mb-3 text-muted">&copy; 2017-2019</p>
+    </form>
+    </div>
+    <!--<label for="inputEmail" class="sr-only">아이디</label>
+    <input type="email" id="inputEmail" class="form-control" placeholder="Id" required autofocus>
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" id="inputPassword" class="form-control" placeholder="Pw" required>
+    <input type="password" id="inputPasswordCh" class="form-control" placeholder="PwCh" required>-->
+    {% endblock %}
+</body>
+</html>

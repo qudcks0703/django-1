@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+{% extends 'base_top.html' %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/signin.css' %}">
+</head>
+<body>
+     {% block content%}
+     {% if result == '1' %}
+     <script>
+         alert('아이디가 틀림');
+         window.location.href="{% url 'signin' %}";
+     </script>
+     {% elif result == '2' %}
+     <script>
+         alert('비번이 틀림');
+         window.location.href="{% url 'signin' %}";
+     </script>
+     {% elif result == '3' %}
+     <script>
+         alert('로긴 성공');
+         window.location.href="{% url 'home' %}";
+     </script>
+<!--     <script>-->
+<!--         alert('반갑다');-->
+<!--         window.location.href="{% url 'signin' %}";-->
+<!--     </script>-->
+     {% endif %}
+     <div class="container">
+        <form class="form-signin" method="POST">
+            <img class="mb-4" src="/docs/4.4/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+            <h1 class="h3 mb-3 font-weight-normal">로그인</h1>
+            {% csrf_token %}
+            {{ loginform.as_p}}
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" value="remember-me"> 아이디 저장
+                </label>
+            </div>
+            <div align="center">
+                <button style="width:222px;text-align:center;" class="btn btn-lg btn-primary btn-block" type="submit">로그인</button>
+            </div>
+        </form>
+         <a href="https://kauth.kakao.com/oauth/authorize?client_id=3ebeac8272c8353cf2ff9f714fa3880d&redirect_uri=http://127.0.0.1:8000/oauth&response_type=code"><img src="{% static 'img/k_login.png'%}"></a>
+         <p class="mt-5 mb-3 text-muted">&copy; 2017-2019</p>
+         <a href="{% url 'k_logout' %}">카카오 로그아웃</a>
+         <a href="{% url 'k_delete' %}">카카오 앱해제</a>
+         <a href="{% url 'select_me' %}">클릭시 정보전달</a>
+     </div>
+    {% endblock %}
+</body>
+</html>
