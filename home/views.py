@@ -122,4 +122,14 @@ def select_me(request):
     a=requests.get(k_select_me_url,headers=headers)
     print(a)
     print(a.text)
-    return redirect('signin')
+    me1=a.json()
+    print(me1)
+    me2=a.json()['properties']
+    print(me2)
+    me_nickname=me2['nickname']
+    me_thumbnail_image=me2['thumbnail_image']
+    content={
+        "me_nickname":me_nickname,
+        "me_thumbnail_image":me_thumbnail_image,
+    }
+    return render(request,"home.html",{"content":content})
