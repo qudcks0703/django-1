@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    #'channels',
+    'django0316',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,11 +40,47 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'home',
-    'dal',
-    'dal_select2',
+    'django_summernote',
+    'allauth1',
 
+    #allauth
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    #provider
+    'allauth.socialaccount.providers.kakao',
 ]
 
+SITE_ID=1
+SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'
+LOGIN_REDIRECT_URL = "/allauth1/login1/"
+#로그인 후 리다이렉트
+ACCOUNT_LOGOUT_REDIRECT_URL = "/allauth1/login1/"
+# Provider specific settings
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        'APP': {
+            'client_id': '406996',
+            'secret': '3ebeac8272c8353cf2ff9f714fa3880d',
+            'key': ''
+        }
+    }
+}
+
+# ASGI_APPLICATION = 'django1.routing.application'
+# CHANNEL_LAYERS = {
+#     'default': {
+#         'BACKEND': 'channels_redis.core.RedisChannelLayer',
+#         'CONFIG': {
+#             "hosts": [('127.0.0.1', 8000)],
+#         },
+#     },
+# }
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -58,7 +96,11 @@ ROOT_URLCONF = 'django1.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,"home/templates")],
+        'DIRS': [
+            os.path.join(BASE_DIR,"django0316/templates"),
+            os.path.join(BASE_DIR,"home/templates"),
+            os.path.join(BASE_DIR,"allauth1/templates"),
+         ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -107,9 +149,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
@@ -121,10 +163,29 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+#경로를 고정값으로 고정가능
+# {% static 'css/naverbar.css'%}
+#/static/css/naverbar.css
+
 STATIC_URL = '/static/'
+
 STATIC_DIRS=os.path.join(BASE_DIR,"home/static")
 
 STATICFILES_DIRS=[
     STATIC_DIRS,
 ]
 STATIC_ROOT=os.path.join(BASE_DIR,'static')
+
+#Media
+
+MEDIA_URL='/media/'
+#file 을다루기위해선 pillow라는 걸 install  해야함
+#또한 upload_to="image"라던지 ㅣ런식으로 바꿔줘야함(upload_to="%Y/%m/%d")
+#파일 받을때는 reqeust.FILES 해야함
+#from django.conf.urls.static import static
+#urlpatterns = += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+MEDIA_ROOT=os.path.join(BASE_DIR,'media/')
+#모든 파일을 여기에 등록하겟다.
+
+#python 3.x 버젼에선 반드시작성해야함
+X_FRAME_OPTIONS = 'SAMEORIGIN'
