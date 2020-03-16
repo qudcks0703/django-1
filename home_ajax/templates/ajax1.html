@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static%}
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+<style type="text/css" >
+.wrap-loading{ /*화면 전체를 어둡게 합니다.*/
+    position: fixed;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    background: rgba(0,0,0,0.2); /*not in ie */
+    filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#20000000', endColorstr='#20000000');    /* ie */
+}
+    .wrap-loading div{ /*로딩 이미지*/
+        position: fixed;
+        top:50%;
+        left:50%;
+        margin-left: -21px;
+        margin-top: -21px;
+    }
+    .display-none{ /*감추기*/
+        display:none;
+    }
+</style>
+</head>
+<body>
+<div class="wrap-loading display-none">
+    <div><img src="{% static 'img/k_login.png'%}" /></div>
+</div>
+
+<p id="msg">안녕하세요.</p>
+<span id="span"></span>
+zz<input type="text" id="aa">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    i=0
+    $('#aa').keyup(function(){
+        $.ajax({
+            url:"{% url 'ajax1_basic' %}",
+            dataType:"json",
+            type:'get',
+            //data:{'msg':$('#msg').val()},
+            success:function (data) {
+                //alert(data.msg);
+                //alert(data.messages);
+                //data1=JSON.stringify(data);
+                //alert(data1)
+                //alert(data1["msg"]);
+                if (i ==0){
+                    $('#span').html(data.msg);
+                    i+=1;
+                }
+                else if (i ==1){
+                    $('#span').hide(2000);
+                    i+=1;
+                }
+                else{
+                    $('#span').show(2000);
+                    i-=1;
+
+                }
+            },
+            beforeSend:function(){
+                $('.wrap-loading').removeClass('display-none');
+            },
+
+            complete:function(){
+                $('.wrap-loading').addClass('display-none');
+
+            }
+            ,timeout:100000
+        })
+    })
+
+</script>
+</body>
+</html>

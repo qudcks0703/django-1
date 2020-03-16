@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'home',
+    'home_ajax',
     'django_summernote',
     'allauth1',
 
@@ -100,6 +101,7 @@ TEMPLATES = [
             os.path.join(BASE_DIR,"django0316/templates"),
             os.path.join(BASE_DIR,"home/templates"),
             os.path.join(BASE_DIR,"allauth1/templates"),
+            os.path.join(BASE_DIR,"home_ajax/templates"),
          ],
         'APP_DIRS': True,
         'OPTIONS': {

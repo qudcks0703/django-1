@@ -22,6 +22,7 @@ urlpatterns = [
     path('django0316/',include("django0316.urls")),
     path('summernote/', include('django_summernote.urls')),
     path('allauth1/', include('allauth1.urls')),
-    path('accounts/',include('allauth.urls'))
+    path('accounts/',include('allauth.urls')),
+    path('ajax/',include('home_ajax.urls'))
 ]
 
