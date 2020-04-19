@@ -1,2 +1,1 @@
-# django
- 
+ - 개인 Django 학습 및 구현
